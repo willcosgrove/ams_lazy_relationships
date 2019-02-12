@@ -16,9 +16,15 @@ module AmsLazyRelationships
 
       # Lazy loads and yields the data when evaluating
       # @param record [Object] an object for which we're loading the has many data
+      # @param load_for [symbol] a method to call on the instance's object
       # @param block [Proc] a block to execute when data is evaluated.
       #  Loaded data is yielded as a block argument.
-      def load(record, &block)
+      def load(instance, load_for, &block)
+        record = if load_for.present?
+                   instance.object.public_send(load_for)
+                 else
+                   instance.object
+                 end
         key = "#{record.class}/#{association_class_name}"
         BatchLoader.for(record).batch(key: key) do |records, loader|
           data = load_data(records)
