@@ -40,10 +40,12 @@ module AmsLazyRelationships::Core
   end
 
   module Initializer
-    def initialize(*)
+    def initialize(object, options = {})
       super
 
-      self.class.send(:load_all_lazy_relationships, self)
+      # binding.pry
+      # self.class.include_directive_from_options(@instance_options)
+      self.class.send(:load_all_lazy_relationships, self, options.fetch(:level, 0))
     end
   end
 end
