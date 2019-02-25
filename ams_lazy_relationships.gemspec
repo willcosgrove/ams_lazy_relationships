@@ -35,7 +35,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "active_model_serializers"
   spec.add_dependency "batch-loader", "~> 1.2"
-  spec.add_dependency "jsonapi-renderer"
 
   spec.add_development_dependency "activerecord"
   # A Ruby library for testing against different versions of dependencies
